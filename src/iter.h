@@ -2,7 +2,7 @@
 #include <stdbool.h>
 
 struct MultiIndex {
-    size_t* index;
+    size_t* coord;
     size_t* range;
     size_t  count;
     size_t  i;

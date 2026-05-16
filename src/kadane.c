@@ -1,7 +1,7 @@
 #include <assert.h>
 #include <stddef.h>
 #include <limits.h>
-#include "loop.h"
+#include "iter.h"
 
 static inline int max(int a, int b) {
     return (a > b) ? a : b;
@@ -9,12 +9,28 @@ static inline int max(int a, int b) {
 
 int kadane_1d(size_t n, int a[n]) {
     int xmax = INT_MIN;
-    int xi = 0;
-    int xf = 0;
+    int x = 0;
     for (int i = 0; i < n; i++) {
-        xf = xi + a[i];
-        xi = max(xf, a[i]);
-        xmax = max(xmax, xi);
+        x = max(a[i], x + a[i]);
+        xmax = max(xmax, x);
+    }
+    return xmax;
+}
+
+int kadane_loop_1d(size_t n, int a[n]) {
+    int xmax = INT_MIN;
+    int j = 0;
+    int xl = 0;
+    int xr = 0;
+    for (int i = 0; i + j < n; i++) {
+        xr = max(a[(n-1)-j], xl + a[(n-1)-j]);
+        xl = max(a[i], xl + a[i]);
+        if (xr > xl) {
+            xl = xr;
+            i--;
+            j++;
+        }
+        xmax = max(xmax, xl);
     }
     return xmax;
 }
@@ -52,11 +68,11 @@ void zero_nd(size_t n, size_t dim[n], int* T) {
         index[i] = 0;
     }
     for (
-        struct MultiIndex loop = multi_index_init(n, index, dim);
-        multi_index_conditional(&loop);
-        multi_index_iteration(&loop)
+        struct MultiIndex x = multi_index_init(n, index, dim);
+        multi_index_conditional(&x);
+        multi_index_iteration(&x)
     ) {
-        T[multi_index_flatten(&loop)] = 0;
+        T[multi_index_flatten(&x)] = 0;
     }
     return;
 }
@@ -67,11 +83,11 @@ void add_nd(size_t n, size_t dim[n], int* T, int* U) {
         index[i] = 0;
     }
     for (
-        struct MultiIndex loop = multi_index_init(n, index, dim);
-        multi_index_conditional(&loop);
-        multi_index_iteration(&loop)
+        struct MultiIndex x = multi_index_init(n, index, dim);
+        multi_index_conditional(&x);
+        multi_index_iteration(&x)
     ) {
-        T[multi_index_flatten(&loop)] += U[multi_index_flatten(&loop)];
+        T[multi_index_flatten(&x)] += U[multi_index_flatten(&x)];
     }
     return;
 }

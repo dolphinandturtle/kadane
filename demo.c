@@ -2,6 +2,11 @@
 #include "include/kadane.h"
 
 int main(void) {
+    printf("Greatest sum in segment: %d\n", kadane_1d(7, (int[]){1, 1, -2, 3, -2, 1, 1}));
+    printf("Greatest sum in loop: %d\n", kadane_loop_1d(7, (int[]){1, 1, -2, 3, -2, 1, 1}));
+
+    printf("Greatest sum in segment: %d\n", kadane_1d(7, (int[]){1, 1, -3, 3, -3, 1, 1}));
+    printf("Greatest sum in loop: %d\n", kadane_loop_1d(7, (int[]){1, 1, -3, 3, -3, 1, 1}));
 
     int M[6][6] = {
         { +1,  +1,  +1,  +1,  +1,  +1},

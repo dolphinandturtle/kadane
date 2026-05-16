@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stddef.h>
 #include <stdbool.h>
-#include "loop.h"
+#include "iter.h"
 
 
 void print_row(size_t n, size_t a[n]) {
@@ -39,7 +39,7 @@ size_t multi_index_flatten(struct MultiIndex* loop) {
         for (int j = i + 1; j < loop->count; j++) {
             offset *= loop->range[j];
         }
-        flat += offset * loop->index[i];
+        flat += offset * loop->coord[i];
     }
     return flat;
 }
@@ -48,27 +48,27 @@ struct MultiIndex multi_index_init(size_t count, size_t index[count], size_t ran
     return (struct MultiIndex){index, range, count, count - 1};
 }
 
-bool multi_index_conditional(struct MultiIndex* loop) {
+bool multi_index_conditional(struct MultiIndex* x) {
     while (1) {
-        if (loop->index[loop->i] == loop->range[loop->i]) {
-            if (loop-> i == 0) {
+        if (x->coord[x->i] == x->range[x->i]) {
+            if (x-> i == 0) {
                 return false;
             }
             else {
-                loop->index[loop->i] = 0;
-                loop->index[--loop->i]++;
+                x->coord[x->i] = 0;
+                x->coord[--x->i]++;
             }
         }
-        else if (loop->i == loop->count - 1) {
+        else if (x->i == x->count - 1) {
             return true;
         }
         else {
-            loop->i++;
+            x->i++;
         }
     }
 }
 
-void multi_index_iteration(struct MultiIndex* loop) {
-    loop->index[loop->i]++;
+void multi_index_iteration(struct MultiIndex* x) {
+    x->coord[x->i]++;
     return;
 }
