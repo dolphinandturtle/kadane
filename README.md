@@ -1,3 +1,5 @@
+![maximum-subarray](doc/build/images/kadane.png)
+
 # Abstract
 Given an **array of numbers**, the task of finding the subarray 
 whose internal **sum is the greatest** is *trivial* when every 
