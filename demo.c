@@ -8,7 +8,16 @@ int main(void) {
     printf("Greatest sum in segment: %d\n", kadane_1d(7, (int[]){1, 1, -3, 3, -3, 1, 1}));
     printf("Greatest sum in loop: %d\n", kadane_loop_1d(7, (int[]){1, 1, -3, 3, -3, 1, 1}));
 
-    int M[6][6] = {
+    int M[3][3] = {
+        {+1, -1, +1},
+        {+1, -1, +1},
+        {+1, -1, +1}
+    };
+
+    printf("Greatest boxed sum: %d\n", kadane_loop_2d(3, 3, M));
+    printf("Greatest boxed sum: %d\n", kadane_loop_nd(2, (size_t[]){3, 3}, (int*)M));
+
+    int U[6][6] = {
         { +1,  +1,  +1,  +1,  +1,  +1},
         { +1, -10, -10, -10, -10,  +1},
         { +1, -10, +10, +10, -10,  +1},
@@ -17,7 +26,7 @@ int main(void) {
         { +1,  +1,  +1,  +1,  +1,  +1},
     };
 
-    printf("Greatest boxed sum: %d\n", kadane_nd(2, (size_t []){6, 6}, (int*)M));
+    printf("Greatest boxed sum: %d\n", kadane_nd(2, (size_t []){6, 6}, (int*)U));
 
     int T[4][4][4] = {
         {{-1, -1, -1, -1}, {-1, -1, -1, -1}, {-1, -1, -1, -1}, {-1, -1, -1, -1}},
