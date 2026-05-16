@@ -1,4 +1,4 @@
-![maximum-subarray](doc/build/images/kadane.png)
+![maximum-subarray](doc/build/images/max-subarray.png)
 
 # Abstract
 Given an **array of numbers**, the task of finding the subarray 
