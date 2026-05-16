@@ -19,18 +19,12 @@ int kadane_1d(size_t n, int a[n]) {
 
 int kadane_loop_1d(size_t n, int a[n]) {
     int xmax = INT_MIN;
-    int j = 0;
-    int xl = 0;
-    int xr = 0;
-    for (int i = 0; i + j < n; i++) {
-        xr = max(a[(n-1)-j], xl + a[(n-1)-j]);
-        xl = max(a[i], xl + a[i]);
-        if (xr > xl) {
-            xl = xr;
-            i--;
-            j++;
-        }
-        xmax = max(xmax, xl);
+    int xl = 0, x = 0, xr = 0;
+    for (int i = 0, j = 0; i + j < n; (xl < xr) ? i++ : j++) {
+        xl = max(a[(n-1)-j], x + a[(n-1)-j]);
+        xr = max(a[i], x + a[i]);
+        x = max(xl, xr);
+        xmax = max(xmax, x);
     }
     return xmax;
 }
